@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { Icon, Input, Text } from '@rneui/themed';
-import RecipeItemCard from '../components/RecipeItemCard';
+import { RecipeItemCard } from '../components/RecipeItemCard';
 import { RecipeBasicInfo } from '../model';
 import { useDebouncedCallback } from 'use-debounce';
 import { useRecipeSearch } from '../hooks/useRecipeSearch';
+import { ErrorMessage } from '../components/ErrorMessage';
 
 interface Props {
 
@@ -109,7 +110,7 @@ const Search: FC<Props> = () => {
             {/*    onEndReachedThreshold={0.3}*/}
             {/*/>*/}
             {isLoading && <ActivityIndicator size="large" color='darkgreen'/>}
-            {error && <Text style={style.errorText}>{error}</Text>}
+            {error && <ErrorMessage message={error}/>}
             {isLastPage && <Text>No more results</Text>}
         </View>
     );
@@ -119,9 +120,6 @@ const style = StyleSheet.create({
     list: {
         marginBottom: 100
     },
-    errorText: {
-        color: 'darkred'
-    }
-})
+});
 
 export default Search;

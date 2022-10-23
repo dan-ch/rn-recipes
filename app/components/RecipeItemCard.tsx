@@ -1,29 +1,35 @@
 import React, { FC } from 'react';
 import { Card } from '@rneui/themed';
-import { StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import { RecipeBasicInfo } from '../model';
 import { useDimensions } from '../hooks/useDimensions';
 import AutoHeightImage from 'react-native-auto-height-image';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
     recipe: RecipeBasicInfo
 }
 
-const RecipeItemCard: FC<Props> = ({recipe}) => {
+export const RecipeItemCard: FC<Props> = ({recipe}) => {
 
     const { width, height } = useDimensions();
+    const navigation = useNavigation();
+
 
     return (
-        <Card containerStyle={styles.card}>
-            <Card.Title>{recipe.title}</Card.Title>
-            <Card.Divider />
-            <AutoHeightImage
-                source={{uri: recipe.image}}
-                width={width * 0.835}
-                maxHeight={height * 0.3}
-                style={styles.image}
-            />
-        </Card>
+        // @ts-ignore
+        <Pressable onPress={() => navigation.navigate("Recipe", {recipeId: recipe.id})}>
+            <Card containerStyle={styles.card}>
+                <Card.Title>{recipe.title}</Card.Title>
+                <Card.Divider />
+                <AutoHeightImage
+                    source={{uri: recipe.image}}
+                    width={width * 0.835}
+                    maxHeight={height * 0.3}
+                    style={styles.image}
+                />
+            </Card>
+        </Pressable>
     );
 };
 
@@ -36,5 +42,3 @@ const styles = StyleSheet.create({
         borderRadius: 3
     },
 });
-
-export default RecipeItemCard;

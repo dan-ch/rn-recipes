@@ -12,6 +12,51 @@ export interface SearchRecipeResponse {
     totalResults: number
 }
 
-export interface Recipe extends RecipeBasicInfo{
+interface Ingredient {
+    aisle: string;
+    amount: number;
+    consitency: string;
+    id: number;
+    image: string;
+    meta?: Array<string>;
+    name: string;
+    original: string;
+    originalName: string;
+    unit: string;
+}
 
+export interface Recipe extends RecipeBasicInfo{
+    servings: number;
+    readyInMinutes: number;
+    license: string;
+    sourceName: string;
+    sourceUrl: string;
+    spoonacularSourceUrl: string;
+    aggregateLikes: number;
+    healthScore: number;
+    spoonacularScore: number;
+    pricePerServing: number;
+    analyzedInstructions: Array<any>;
+    cheap: boolean;
+    creditsText: string;
+    cuisines: Array<string>;
+    dairyFree: boolean;
+    diets: Array<string>;
+    gaps: string;
+    glutenFree: boolean;
+    instructions: string;
+    ketogenic: boolean;
+    lowFodmap: boolean;
+    occasions: Array<string>;
+    sustainable: boolean;
+    vegan: boolean;
+    vegetarian: boolean;
+    veryHealthy: boolean;
+    veryPopular: boolean;
+    whole30: boolean;
+    weightWatcherSmartPoints: number;
+    dishTypes: Array<string>;
+    extendedIngredients: Set<Ingredient>;
+    summary: string;
+    winePairing: any;
 }

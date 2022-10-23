@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Recipe } from '../model';
-import { axios } from '../uilts';
+import { axios, parseRecipeResponse } from '../uilts';
 
 export const useRecipe = (recipeId: string) => {
     const [data, setData] = useState<Recipe | null>(null);
@@ -8,10 +8,12 @@ export const useRecipe = (recipeId: string) => {
     const [error, setError] = useState("");
 
     const fetch = () => {
+        if(!recipeId) return;
+
         setIsLoading(true);
-        axios.get(`/${recipeId}/information`)
-            .then(response => setData(response.data))
-            .catch(error => setError(error.toString))
+        axios.get(`/recipes/${recipeId}/information`)
+            .then(response => setData(parseRecipeResponse(response.data)))
+            .catch(error => setError(error.toString()))
             .finally(() => setIsLoading(false))
     };
 
@@ -23,6 +25,6 @@ export const useRecipe = (recipeId: string) => {
         data,
         isLoading,
         error
-    };
+    }
 
 };
