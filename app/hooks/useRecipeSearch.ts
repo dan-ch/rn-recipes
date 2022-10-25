@@ -5,7 +5,7 @@ import { axios } from '../uilts';
 
 export const useRecipeSearch = () => {
     const [data, setData] = useState<RecipeBasicInfo []>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [isLastPage, setIsLastPage] = useState(false)
     const [lastQuery, setLastQuery] = useState('');

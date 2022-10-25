@@ -12,7 +12,7 @@ export interface SearchRecipeResponse {
     totalResults: number
 }
 
-interface Ingredient {
+export interface Ingredient {
     aisle: string;
     amount: number;
     consitency: string;
@@ -23,6 +23,11 @@ interface Ingredient {
     original: string;
     originalName: string;
     unit: string;
+}
+
+export interface Instruction {
+    name: string
+    steps: {step: string, number: number}[]
 }
 
 export interface Recipe extends RecipeBasicInfo{
@@ -36,7 +41,7 @@ export interface Recipe extends RecipeBasicInfo{
     healthScore: number;
     spoonacularScore: number;
     pricePerServing: number;
-    analyzedInstructions: Array<any>;
+    analyzedInstructions: Instruction[]
     cheap: boolean;
     creditsText: string;
     cuisines: Array<string>;
@@ -56,7 +61,7 @@ export interface Recipe extends RecipeBasicInfo{
     whole30: boolean;
     weightWatcherSmartPoints: number;
     dishTypes: Array<string>;
-    extendedIngredients: Set<Ingredient>;
+    extendedIngredients: Ingredient[];
     summary: string;
     winePairing: any;
 }

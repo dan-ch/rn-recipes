@@ -6,7 +6,7 @@ import Search from './app/screens/Search';
 import Favourites from './app/screens/Favourites';
 import { Button, Icon } from '@rneui/themed';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Recipe from './app/screens/Recipe';
+import Recipe from './app/screens/recipe/Recipe';
 
 const Tab = createBottomTabNavigator();
 
