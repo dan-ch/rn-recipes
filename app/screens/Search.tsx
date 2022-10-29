@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, Pressable, StyleSheet, View } from 'react-native';
 import { Icon, Input, Text } from '@rneui/themed';
 import { RecipeItemCard } from '../components/RecipeItemCard';
-import { RecipeBasicInfo } from '../model';
+import { Recipe, RecipeBasicInfo } from '../model';
 import { useDebouncedCallback } from 'use-debounce';
 import { useRecipeSearch } from '../hooks/useRecipeSearch';
 import { ErrorMessage } from '../components/ErrorMessage';
+import { useNavigation } from '@react-navigation/native';
 
 interface Props {
 
@@ -21,6 +22,8 @@ const Search: FC<Props> = () => {
         error,
         isLastPage,
     } = useRecipeSearch();
+
+    const navigation = useNavigation();
 
     const json: RecipeBasicInfo[] = [
         {
@@ -87,28 +90,27 @@ const Search: FC<Props> = () => {
 
     const onInputChange = useDebouncedCallback(value => searchForRecipe(value), 1000)
 
+    const renderSearchedRecipe = (recipe: RecipeBasicInfo) => (
+        // @ts-ignore
+        <Pressable onPress={() => navigation.navigate("Recipe", {recipeId: recipe.id})}>
+            <RecipeItemCard recipe={recipe} />
+        </Pressable>
+    );
+
     return (
         <View>
             <Input
                 placeholder='Search for recipes'
                 rightIcon={<Icon name='ios-search' type='ionicon'/>}
-                // onChangeText={onInputChange}
-                onChangeText={value => console.log(value)}
+                onChangeText={onInputChange}
             />
             <FlatList
                 style={style.list}
-                data={json}
-                renderItem={data => <RecipeItemCard recipe={data.item} />}
-                // onEndReached={loadMore}
-                // onEndReachedThreshold={0.3}
+                data={data}
+                renderItem={data => renderSearchedRecipe(data.item)}
+                onEndReached={loadMore}
+                onEndReachedThreshold={0.3}
             />
-            {/*<FlatList*/}
-            {/*    style={style.list}*/}
-            {/*    data={data}*/}
-            {/*    renderItem={data => <RecipeItemCard recipe={data.item} />}*/}
-            {/*    onEndReached={loadMore}*/}
-            {/*    onEndReachedThreshold={0.3}*/}
-            {/*/>*/}
             {isLoading && <ActivityIndicator size="large" color='darkgreen'/>}
             {error && <ErrorMessage message={error}/>}
             {isLastPage && <Text>No more results</Text>}

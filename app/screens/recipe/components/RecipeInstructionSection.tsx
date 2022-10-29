@@ -15,7 +15,7 @@ const RecipeInstructionSection: FC<Props> = ({instructions}) => {
                 <>
                     {name && <Text style={style.instruction}>{name}</Text>}
                     {steps.map(step =>
-                        <Text style={style.singleStep}>{`${step.number}. ${step.step}`}</Text>
+                        <Text key={step.number} style={style.singleStep}>{`${step.number}. ${step.step}`}</Text>
                     )}
                 </>
             )

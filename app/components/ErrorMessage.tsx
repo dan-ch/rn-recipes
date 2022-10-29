@@ -14,6 +14,7 @@ export const ErrorMessage: FC<Props> = ({message}) => {
 
 const styles = StyleSheet.create({
     errorText: {
+        textAlign: 'center',
         fontSize: 14,
         color: 'red'
     }

@@ -5,23 +5,21 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useRecipe } from '../../hooks/useRecipe';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
 import { ErrorMessage } from '../../components/ErrorMessage';
-import { IOS_BLUE, mockedRecipe } from '../../uilts';
+import { IOS_BLUE } from '../../uilts';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useDimensions } from '../../hooks/useDimensions';
-import RecipeTitledSection from './components/RecipeTitledSection';
-import RecipeTextSection from './components/RecipeTextSection';
 import RecipeInformation from './components/RecipeInformation';
 import { Recipe as RecipeModel } from '../../model';
+import { useFavourites } from '../../hooks/useFavourites';
 
 const Recipe = () => {
     const { width, height } = useDimensions();
     const navigation = useNavigation();
-    const { recipeId }  = useRoute().params as {recipeId: string};
-    // const { data, isLoading, error } = useRecipe(recipeId);
+    const { recipeId, recipe }  = useRoute().params as {recipeId: number, recipe: RecipeModel | null};
+    const { data, isLoading, error } = useRecipe(recipeId);
+    const { toggleFavourites, isInFavourites } = useFavourites();
 
-    // @ts-ignore
-    const data = mockedRecipe as RecipeModel;
-    const isLiked = false;
+    const recipeToRender = recipeId ? data : recipe;
 
     return (
         <View style={{flex: 1}}>
@@ -32,27 +30,27 @@ const Recipe = () => {
                 </Button>
                 <Button
                     type='clear'
-                    onPress={() => console.log('Right button pressed')}
+                    onPress={() => recipeToRender && toggleFavourites(recipeToRender)}
                     icon={{
                         name: 'star',
                         type: 'antdesign',
-                        color: isLiked ? 'gold' : 'gray'
+                        color: recipeToRender && isInFavourites(recipeToRender) ? 'gold' : 'gray'
                     }}
                 />
             </View>
             <ScrollView >
-                {/*{error && <ErrorMessage message={error}/>}*/}
-                {/*{isLoading && <LoadingIndicator />}*/}
-                {data &&
+                {error && <ErrorMessage message={error}/>}
+                {isLoading && <LoadingIndicator />}
+                {recipeToRender &&
                     <View style={{margin: width*0.05, flex: 1}}>
-                        <Text style={style.recipeTitle}>{data.title}</Text>
+                        <Text style={style.recipeTitle}>{recipeToRender.title}</Text>
                         <AutoHeightImage
-                         source={{uri: data.image}}
+                         source={{uri: recipeToRender.image}}
                          width={width * 0.9}
                          maxHeight={height * 0.3}
                          style={{borderRadius: 5}}
                         />
-                        <RecipeInformation recipe={data} />
+                        <RecipeInformation recipe={recipeToRender} />
                     </View>
                 }
             </ScrollView>

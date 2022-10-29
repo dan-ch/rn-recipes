@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Recipe } from '../model';
 import { axios, parseRecipeResponse } from '../uilts';
 
-export const useRecipe = (recipeId: string) => {
+export const useRecipe = (recipeId: number) => {
     const [data, setData] = useState<Recipe | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
     const fetch = () => {

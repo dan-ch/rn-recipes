@@ -2,6 +2,7 @@ import baseAxios from 'axios';
 import { Recipe } from './model';
 
 export const IOS_BLUE = "#1E90FF";
+export const STORAGE_FAVOURITES_KEY = 'storageFavouritesKey';
 
 export const axios = baseAxios.create({
     baseURL: 'https://api.spoonacular.com',
@@ -390,7 +391,7 @@ export const mockedRecipe = {
     "readyInMinutes": 45,
     "servings": 8,
     "sourceUrl": "https://www.foodista.com/recipe/R258FZGZ/potato-soup-with-sun-dried-tomato-and-ham",
-    "image": "https://spoonacular.com/recipeImages/657003-556x370.jpg",
+    "image": "https://images.unsplash.com/photo-1536599018102-9f803c140fc1?auto=format&fit=crop&w=440&h=220&q=60",
     "imageType": "jpg",
     "summary": "Potato Soup with Sun Dried Tomato and Ham might be just the soup you are searching for. This recipe serves 8 and costs $1.23 per serving. Watching your figure? This gluten free recipe has <b>176 calories</b>, <b>8g of protein</b>, and <b>9g of fat</b> per serving. Only a few people made this recipe, and 1 would say it hit the spot. From preparation to the plate, this recipe takes around <b>around 45 minutes</b>. <b>Autumn</b> will be even more special with this recipe. It is brought to you by Foodista. A mixture of extra turkey ham, vegetable broth, thyme, and a handful of other ingredients are all it takes to make this recipe so yummy. Taking all factors into account, this recipe <b>earns a spoonacular score of 39%</b>, which is rather bad. Users who liked this recipe also liked <a href=\"https://spoonacular.com/recipes/potato-soup-with-sun-dried-tomato-and-ham-530994\">Potato Soup with Sun Dried Tomato and Ham</a>, <a href=\"https://spoonacular.com/recipes/turkey-ham-sun-dried-tomato-sub-280654\">Turkey, Ham & Sun-Dried Tomato Sub</a>, and <a href=\"https://spoonacular.com/recipes/ham-cheese-sun-dried-tomato-omelet-270529\">Ham, Cheese & Sun-Dried Tomato Omelet</a>.",
     "cuisines": [],
